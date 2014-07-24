@@ -22,7 +22,6 @@ public class SqlParser{
     def timeStampUnderConsideration = '';
     def isTimeStampLogged = false;
     def listOfTableNames = [];
-    int numberOfLinesRead =0;
     int totalNumberOfLinesReadPreviously = 0;
     def timeStampList =[]
 
@@ -40,7 +39,6 @@ public class SqlParser{
                 listOfTableNames.add(columnNameTableNameMap.value)
             }
         }
-        println "tables read succesfully"
     }
 
     def writeDMLStatementsToFile(){
@@ -65,14 +63,18 @@ public class SqlParser{
     }
 
     def startCollectingTheDataForProcessing(){
+        int numberOfLinesRead =0;
         sqlLogFile.eachLine { line ->
+            line = line.toLowerCase();
+            numberOfLinesRead++;
             Matcher timeStampMatcher =timeStampPattern.matcher(line)
-            if(!timeStampList.contains(line)){
+            if(!timeStampList.contains(line) && (numberOfLinesRead > totalNumberOfLinesReadPreviously && numberOfLinesRead>contentsFromAutoCompleteToCommit.size() )){
                 if(timeStampMatcher.find()){
                     timeStampList.add(line);
                     if(isAutoCompletePresentInTheList){
                         isAutoCompletePresentInTheList = false;
                         writeDMLStatementsToFile();
+                        totalNumberOfLinesReadPreviously = totalNumberOfLinesReadPreviously +contentsFromAutoCompleteToCommit.size();
                         contentsFromAutoCompleteToCommit = [];
                         isTimeStampLogged = false;
                     }
@@ -111,7 +113,6 @@ public class SqlParser{
     }
 
     def startWatch(){
-        println "watching...."
         Path myDir = Paths.get("E:/parser/files");
         WatchService watcher;
         WatchKey watckKey;
