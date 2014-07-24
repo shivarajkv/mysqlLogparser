@@ -68,19 +68,19 @@ public class SqlParser{
             line = line.toLowerCase();
             numberOfLinesRead++;
             Matcher timeStampMatcher =timeStampPattern.matcher(line)
-            if(!timeStampList.contains(line) && (numberOfLinesRead > totalNumberOfLinesReadPreviously && numberOfLinesRead>contentsFromAutoCompleteToCommit.size() )){
+            if(numberOfLinesRead > (totalNumberOfLinesReadPreviously + contentsFromAutoCompleteToCommit.size()) ){
                 if(timeStampMatcher.find()){
-                    timeStampList.add(line);
                     if(isAutoCompletePresentInTheList){
                         isAutoCompletePresentInTheList = false;
                         writeDMLStatementsToFile();
                         totalNumberOfLinesReadPreviously = totalNumberOfLinesReadPreviously +contentsFromAutoCompleteToCommit.size();
                         contentsFromAutoCompleteToCommit = [];
                         isTimeStampLogged = false;
+                    }else{
+                        isAutoCompletePresentInTheList = true;
+                        contentsFromAutoCompleteToCommit.add(line);
+                        timeStampUnderConsideration = line+'\n';
                     }
-                    isAutoCompletePresentInTheList = true;
-                    contentsFromAutoCompleteToCommit.add(line);
-                    timeStampUnderConsideration = line+'\n';
                 }else{
                     contentsFromAutoCompleteToCommit.add(line);
                 }
