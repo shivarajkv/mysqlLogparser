@@ -1,0 +1,12 @@
+
+
+140723 10:58:23	    1 Connect	root@localhost on
+select accommodation_class
+select accommodation_class
+
+
+140723 10:58:24	    1 Query	SHOW FULL COLUMNS FROM `date_dimension` FROM `accounting_olap` LIKE '%'
+select accommodation_class
+select accommodation_map_type
+select accommodation_class
+select accommodation_map_type
