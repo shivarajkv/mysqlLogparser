@@ -6,7 +6,7 @@ import groovy.sql.Sql
 def props = new Properties()
 String userdir =  System.getProperty("user.dir");
 userdir = userdir.replace("src","")
-new File(userdir + "resources\\db.properties").withInputStream {
+new File(userdir + "\\resources\\db.properties").withInputStream {
     stream -> props.load(stream)
 }
 

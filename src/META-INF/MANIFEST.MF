@@ -1,0 +1,40 @@
+Manifest-Version: 1.0
+Class-Path: abeilleformbuilder-3.0.jar ant-1.8.4.jar ant-antlr-1.8.4.j
+ ar ant-junit-1.8.4.jar ant-launcher-1.8.4.jar antlr-2.7.7.jar asm-4.0
+ .jar asm-analysis-4.0.jar asm-commons-4.0.jar asm-tree-4.0.jar asm-ut
+ il-4.0.jar balloontip-20090102.jar batik-anim-1.7.jar batik-awt-util-
+ 1.7.jar batik-bridge-1.7.jar batik-codec-1.7.jar batik-css-1.7.jar ba
+ tik-dom-1.7.jar batik-ext-1.7.jar batik-extension-1.7.jar batik-gui-u
+ til-1.7.jar batik-gvt-1.7.jar batik-parser-1.7.jar batik-script-1.7.j
+ ar batik-svg-dom-1.7.jar batik-svggen-1.7.jar batik-swing-1.7.jar bat
+ ik-transcoder-1.7.jar batik-util-1.7.jar batik-xml-1.7.jar bsf-2.4.0.
+ jar commons-cli-1.2.jar commons-logging-1.1.1.jar cssbuilder-0.6.jar 
+ cssparser-0.9.5.jar easyb-0.9.8.jar flamingo-4.1.jar flamingobuilder-
+ 0.5.jar forms-1.2.1.jar formsrt-2.1.0M1.jar gant-1.9.8_groovy-2.0.0.j
+ ar gfxbuilder-core-0.6.jar gfxbuilder-svg-0.6.jar gfxbuilder-swingx-0
+ .6.jar gmock-0.8.2.jar gpars-1.0-beta-3.jar groovy-2.0.5.jar groovy-a
+ nt-2.0.5.jar groovy-bsf-2.0.5.jar groovy-console-2.0.5.jar groovy-doc
+ generator-2.0.5.jar groovy-groovydoc-2.0.5.jar groovy-groovysh-2.0.5.
+ jar groovy-jmx-2.0.5.jar groovy-json-2.0.5.jar groovy-jsr223-2.0.5.ja
+ r groovy-servlet-2.0.5.jar groovy-sql-2.0.5.jar groovy-swing-2.0.5.ja
+ r groovy-templates-2.0.5.jar groovy-test-2.0.5.jar groovy-testng-2.0.
+ 5.jar groovy-xml-2.0.5.jar groovyserv-0.10.jar hamcrest-core-1.1.jar 
+ ivy-2.2.0.jar jacob-1.14.3.jar jansi-1.6.jar jcommander-1.12.jar jcsp
+ -1.1-rc5.jar jide-oss-2.10.2.jar jidebuilder-5.0.jar jline-1.0.jar jn
+ a-3.2.7.jar jsilhouette-geom-0.4.jar jsp-api-2.0.jar jsr166y-1.7.0.ja
+ r junit-4.10.jar l2fprod-common-all-6.9.1.jar macwidgetsbuilder-0.5.j
+ ar mac_widgets-0.9.5.jar multiverse-core-0.7.0.jar netty-3.5.7.Final.
+ jar qdox-1.12.jar sac-1.3.jar scriptom-1.6.0.jar scriptom-ie-6-tlb-1.
+ 6.0.jar scriptom-office-2K3-tlb-1.6.0.jar scriptom-sapi-tlb-1.6.0.jar
+  scriptom-scripting-tlb-1.6.0.jar scriptom-wbem-tlb-1.6.0.jar scripto
+ m-wsh-tlb-1.6.0.jar servlet-api-2.4.jar spock-core-0.7-groovy-2.0-201
+ 20930.020057-22.jar svg-salamander-1.1.jar swing-worker-1.1.jar swing
+ x-action-1.6.3.jar swingx-autocomplete-1.6.3.jar swingx-beaninfo-1.6.
+ 3.jar swingx-common-1.6.3.jar swingx-core-1.6.3.jar swingx-graphics-1
+ .6.3.jar swingx-painters-1.6.3.jar swingx-plaf-1.6.3.jar swingxbuilde
+ r-0.2.jar swingxtrasbuilder-0.4.jar testng-6.5.2.jar timingframework-
+ 1.0.jar trident-7.0.jar tridentbuilder-0.6.jar xml-apis-ext-1.3.04.ja
+ r xmlpull-1.1.3.1.jar xstream-1.4.2.jar xswingx-0.2.jar mysql-connect
+ or-java-5.1.31-bin.jar
+Main-Class: initiator
+
