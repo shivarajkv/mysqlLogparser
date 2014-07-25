@@ -42,17 +42,22 @@ public class SqlParser{
     }
 
     def writeDMLStatementsToFile(){
+        Pattern listOfIgnoredContents = Pattern.compile("show|query");
         contentsFromAutoCompleteToCommit.each { content ->
-            DMLStatements.each {dml ->
-                if(ParserHelpers.isContentContainsAnyDMLAndValidTableReference(content,dml,listOfTableNames)){
-                    if(!isTimeStampLogged){
-                        isTimeStampLogged = true;
-                        parserMatchFile.append("\n\n")
-                        parserMatchFile.append(timeStampUnderConsideration);
+            Matcher matcher = listOfIgnoredContents.matcher(content);
+            if(!matcher.find()){
+                DMLStatements.each {dml ->
+                    if(ParserHelpers.isContentContainsAnyDMLAndValidTableReference(content,dml,listOfTableNames)){
+                        if(!isTimeStampLogged){
+                            isTimeStampLogged = true;
+                            parserMatchFile.append("\n\n")
+                            parserMatchFile.append(timeStampUnderConsideration);
+                        }
+                        parserMatchFile.append(content+'\n');
                     }
-                    parserMatchFile.append(content+'\n');
                 }
             }
+
         }
     }
 
@@ -79,7 +84,7 @@ public class SqlParser{
                     }else{
                         isAutoCompletePresentInTheList = true;
                         contentsFromAutoCompleteToCommit.add(line);
-                        timeStampUnderConsideration = line+'\n';
+                        timeStampUnderConsideration = timeStampMatcher.group();+"\n"
                     }
                 }else{
                     contentsFromAutoCompleteToCommit.add(line);
