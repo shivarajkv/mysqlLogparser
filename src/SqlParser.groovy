@@ -7,8 +7,8 @@ import java.util.regex.Pattern
 
 public class SqlParser{
     private rowSetOfTableNames;
-    def sqlLogFile = new File('C:\\genquery.log');
-    def dirName = "C:\\"
+    def sqlLogFile = null;
+    def mysqllogDirectory = "C:\\"
     boolean isAutoCompletePresentInTheList = false;
     def contentsFromAutoCompleteToCommit = [];
     def DMLStatements = ['select','delete','update','insert'];
@@ -57,7 +57,9 @@ public class SqlParser{
     }
 
 
-    public  def initiateProcess(){
+    public  def initiateProcess(String mysqllogDirectory,String mysqllogfile){
+        this.sqlLogFile = new File(mysqllogfile);
+        this.mysqllogDirectory = mysqllogDirectory;
         addRowSetToList();
         startFileReader();
         startWatch();
@@ -107,7 +109,7 @@ public class SqlParser{
     }
 
     def startWatch(){
-        Path myDir = Paths.get(dirName);
+        Path myDir = Paths.get(mysqllogDirectory);
         WatchService watcher;
         WatchKey watckKey;
         try {

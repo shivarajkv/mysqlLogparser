@@ -4,7 +4,9 @@
 import groovy.sql.Sql
 
 def props = new Properties()
-new File("F:\\codebases\\mysqlLogparser\\resources\\db.properties").withInputStream {
+String userdir =  System.getProperty("user.dir");
+userdir = userdir.replace("src","")
+new File(userdir + "resources\\db.properties").withInputStream {
     stream -> props.load(stream)
 }
 
@@ -16,4 +18,4 @@ def sql = Sql.newInstance( url,username,password, "com.mysql.jdbc.Driver");
 def rowSetOfTableNames = sql.rows("show tables");
 
 SqlParser parser = new SqlParser(rowSetOfTableNames);
-parser.initiateProcess();
+parser.initiateProcess(props.mysqllogDirectory,props.mysqllogfile);
