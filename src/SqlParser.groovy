@@ -68,7 +68,7 @@ public class SqlParser{
             println("Begin file read")
             try {
                 while (true) {
-                    FileInputStream genQueryLog = new FileInputStream(sqlLogFile)
+                    FileInputStream genQueryLog = new FileInputStream(sqlLogFile);
                     genQueryLog.close();
                     Thread.sleep(5000)
                 }
@@ -87,23 +87,16 @@ public class SqlParser{
             Matcher timeStampMatcher =timeStampPattern.matcher(line)
             if(numberOfLinesRead > (totalNumberOfLinesReadPreviously + contentsFromAutoCompleteToCommit.size()) ){
                 if(timeStampMatcher.find()){
-                    if(isAutoCompletePresentInTheList){
-                        isAutoCompletePresentInTheList = false;
-                        writeDMLStatementsToFile();
-                        totalNumberOfLinesReadPreviously = totalNumberOfLinesReadPreviously +contentsFromAutoCompleteToCommit.size();
-                        contentsFromAutoCompleteToCommit = [];
-                        isTimeStampLogged = false;
-                    }else{
-                        isAutoCompletePresentInTheList = true;
-                        contentsFromAutoCompleteToCommit.add(line);
-                        timeStampUnderConsideration = timeStampMatcher.group()+"\n"
-                    }
+                    contentsFromAutoCompleteToCommit.add(line);
+                    timeStampUnderConsideration = timeStampMatcher.group()+"\n"
                 }else{
                     contentsFromAutoCompleteToCommit.add(line);
+                    writeDMLStatementsToFile();
+                    totalNumberOfLinesReadPreviously = totalNumberOfLinesReadPreviously +contentsFromAutoCompleteToCommit.size();
+                    contentsFromAutoCompleteToCommit =[];
                 }
             }
         }
-
     }
 
     def startWatch(){
