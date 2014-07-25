@@ -1,20 +1,14 @@
 /**
  * Created by ASUS on 23-Jul-14.
  */
-import groovy.sql.Sql
-
-import java.nio.file.Path
-import java.nio.file.Paths
-import java.nio.file.StandardWatchEventKinds
-import java.nio.file.WatchEvent
-import java.nio.file.WatchKey
-import java.nio.file.WatchService
+import java.nio.file.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 public class SqlParser{
     private rowSetOfTableNames;
     def sqlLogFile = new File('C:\\genquery.log');
+    def dirName = "C:\\"
     boolean isAutoCompletePresentInTheList = false;
     def contentsFromAutoCompleteToCommit = [];
     def DMLStatements = ['select','delete','update','insert'];
@@ -65,7 +59,24 @@ public class SqlParser{
 
     public  def initiateProcess(){
         addRowSetToList();
+        startFileReader();
         startWatch();
+    }
+
+    void startFileReader() {
+        Thread.start {
+            println("Begin file read")
+            try {
+                while (true) {
+                    FileInputStream genQueryLog = new FileInputStream(sqlLogFile)
+                    genQueryLog.close();
+                    Thread.sleep(5000)
+                }
+            } catch (e) {
+                e.printStackTrace();
+            }
+            println("Done file read")
+        }
     }
 
     def startCollectingTheDataForProcessing(){
@@ -92,34 +103,11 @@ public class SqlParser{
                 }
             }
         }
-        /*sqlLogFile.eachLine { line ->
-            numberOfLinesRead = numberOfLinesRead +1;
-            if(numberOfLinesRead>contentsFromAutoCompleteToCommit.size() && numberOfLinesRead>totalNumberOfLinesReadPreviously){
-                println line;
-                line = line.toLowerCase();
 
-                if(timeStampMatcher.find()){
-                    if(isAutoCompletePresentInTheList){
-                        isAutoCompletePresentInTheList = false;
-                        writeDMLStatementsToFile();
-                        totalNumberOfLinesReadPreviously = totalNumberOfLinesReadPreviously + contentsFromAutoCompleteToCommit.size();
-                        contentsFromAutoCompleteToCommit = [];
-                        isTimeStampLogged = false;
-                    }
-                    isAutoCompletePresentInTheList = true;
-                    contentsFromAutoCompleteToCommit.add(line);
-                    timeStampUnderConsideration = line+'\n';
-                }else{
-                    contentsFromAutoCompleteToCommit.add(line);
-                }
-
-                println "count"+totalNumberOfLinesReadPreviously
-            }
-        }*/
     }
 
     def startWatch(){
-        Path myDir = Paths.get("C:\\");
+        Path myDir = Paths.get(dirName);
         WatchService watcher;
         WatchKey watckKey;
         try {
@@ -140,38 +128,9 @@ public class SqlParser{
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error: " + e.toString());
         }
         startWatch();
     }
-
-    /*def doesNotContainIgnoredTableList(String content,List listOfIgnoredTableNames){
-        boolean doesNotContentHaveIgnoredTable = true;
-        listOfIgnoredTableNames.each { ignoredTable ->
-            if(content.contains(ignoredTable)){
-                doesNotContentHaveIgnoredTable =false;
-                return ;
-            }
-        }
-        return doesNotContentHaveIgnoredTable;
-    }
-
-
-    def isContentContainsAnyDMLAndValidTableReference(String content,String dml,listOfTableNames)
-    {
-        def listOfIgnoredTableNames = ['job_sandbox','webslinger_host_suffix','webslinger_host_mapping','webslinger_server','webslinger_server_base'];
-        def isContentMatched = false;
-        if(content.contains(dml)){
-            listOfTableNames.each { tableName ->
-                if(content.contains(tableName) && doesNotContainIgnoredTableList(content,listOfIgnoredTableNames)){
-                    isContentMatched =  true;
-                    return;
-                }
-            }
-        }
-        return  isContentMatched;
-    }*/
-
 
 }
 
