@@ -4,7 +4,7 @@
 import groovy.sql.Sql
 
 def props = new Properties()
-new File("./resources/db.properties").withInputStream {
+new File("F:\\codebases\\mysqlLogparser\\resources\\db.properties").withInputStream {
     stream -> props.load(stream)
 }
 

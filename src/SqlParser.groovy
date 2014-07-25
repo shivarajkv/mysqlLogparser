@@ -14,8 +14,7 @@ import java.util.regex.Pattern
 
 public class SqlParser{
     private rowSetOfTableNames;
-    def sqlLogFile = new File('./files/genquery.log');
-    def parserMatchFile = new File('./files/parserMatch.txt');
+    def sqlLogFile = new File('C:\\genquery.log');
     boolean isAutoCompletePresentInTheList = false;
     def contentsFromAutoCompleteToCommit = [];
     def DMLStatements = ['select','delete','update','insert'];
@@ -42,7 +41,7 @@ public class SqlParser{
     }
 
     def writeDMLStatementsToFile(){
-        Pattern listOfIgnoredContents = Pattern.compile("show|query");
+        Pattern listOfIgnoredContents = Pattern.compile("query[\\s]explain");
         contentsFromAutoCompleteToCommit.each { content ->
             Matcher matcher = listOfIgnoredContents.matcher(content);
             if(!matcher.find()){
@@ -50,10 +49,12 @@ public class SqlParser{
                     if(ParserHelpers.isContentContainsAnyDMLAndValidTableReference(content,dml,listOfTableNames)){
                         if(!isTimeStampLogged){
                             isTimeStampLogged = true;
-                            parserMatchFile.append("\n\n")
-                            parserMatchFile.append(timeStampUnderConsideration);
+                            /*parserMatchFile.append("\n\n")
+                            parserMatchFile.append(timeStampUnderConsideration);*/
+                            print timeStampUnderConsideration
                         }
-                        parserMatchFile.append(content+'\n');
+                        /*parserMatchFile.append(content+'\n');*/
+                        println content
                     }
                 }
             }
@@ -84,7 +85,7 @@ public class SqlParser{
                     }else{
                         isAutoCompletePresentInTheList = true;
                         contentsFromAutoCompleteToCommit.add(line);
-                        timeStampUnderConsideration = timeStampMatcher.group();+"\n"
+                        timeStampUnderConsideration = timeStampMatcher.group()+"\n"
                     }
                 }else{
                     contentsFromAutoCompleteToCommit.add(line);
@@ -118,7 +119,7 @@ public class SqlParser{
     }
 
     def startWatch(){
-        Path myDir = Paths.get("E:/parser/files");
+        Path myDir = Paths.get("C:\\");
         WatchService watcher;
         WatchKey watckKey;
         try {
@@ -138,6 +139,7 @@ public class SqlParser{
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Error: " + e.toString());
         }
         startWatch();
