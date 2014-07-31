@@ -8,15 +8,15 @@ import java.util.regex.Pattern
 public class SqlParser{
     private rowSetOfTableNames;
     def sqlLogFile = null;
-    def mysqllogDirectory = "C:\\"
+    def mysqllogDirectory = "C://"
     boolean isAutoCompletePresentInTheList = false;
     def contentsFromAutoCompleteToCommit = [];
-    def DMLStatements = ['select','delete','update','insert'];
+    def DMLStatements = ['update','insert','delete'];
     def timeStampUnderConsideration = '';
     def isTimeStampLogged = false;
     def listOfTableNames = [];
     int totalNumberOfLinesReadPreviously = 0;
-    def timeStampList =[]
+    def timeStampList =[];
 
     Pattern timeStampPattern = Pattern.compile("[\\d]{6}[\\s][\\d]{2}:[\\d]{2}:[\\d]{2}");
 
@@ -45,9 +45,9 @@ public class SqlParser{
                             isTimeStampLogged = true;
                             /*parserMatchFile.append("\n\n")
                             parserMatchFile.append(timeStampUnderConsideration);*/
-                            print timeStampUnderConsideration
+                            println timeStampUnderConsideration;
                         }
-                        /*parserMatchFile.append(content+'\n');*/
+                       /* parserMatchFile.append(content+'\n');*/
                         println content
                     }
                 }
